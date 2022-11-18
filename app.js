@@ -5,6 +5,7 @@ const logger = require('morgan');
 require('dotenv').config()
 
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/authentication')
 
 const handleResponse = require('./middlewares/handleResponse');
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/user', usersRouter);
+app.use('/auth', authRouter);
 
 // middlewares
 app.use(handleResponse)
