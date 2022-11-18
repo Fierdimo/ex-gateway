@@ -3,36 +3,97 @@ const router = express.Router();
 
 const userService = require('../services/userServices');
 
-
 const onAuthorizedToken = require('../middlewares/onauthorizedToken');
-const setREAD = require('../middlewares/setREAD');
-const setREADALL = require('../middlewares/setREADALL');
-const setUPDATE = require('../middlewares/setUPDATE');
-const setUPDATEALL = require('../middlewares/setUPDATEALL');
+const setCREATE = require('../middlewares/setActions/setCREATE');
+const setCREATEGUEST = require('../middlewares/setActions/setCREATEGUEST');
+const setDELETE = require('../middlewares/setActions/setDELETE');
+const setDELETEALL = require('../middlewares/setActions/setDELETEALL');
+const setREAD = require('../middlewares/setActions/setREAD');
+const setREADALL = require('../middlewares/setActions/setREADALL');
+const setUPDATE = require('../middlewares/setActions/setUPDATE');
+const setUPDATEALL = require('../middlewares/setActions/setUPDATEALL');
+const setUPGRADE = require('../middlewares/setActions/setUPGRADE');
 
-
-router.get('/signin', async function (req, res, next) {
+//Sign in 
+router.post('/signin', setCREATE, async function (req, res, next) {
+  //TODO: crear autenticación por correo
   req.response = await userService.createUser(req.body)
   next();
 });
 
-router.get('/', setREADALL, onAuthorizedToken, async function (req, res, next) {
-  res.json('respond with a resource');
-});
-
-
-router.get('/mydata', setREAD, onAuthorizedToken, async function(req, res, next){
+//Read data of own user
+router.get('/readmydata', setREAD, onAuthorizedToken, async function(req, res, next){
   req.response = await userService.getUserData(req.body)
   next();
 })
 
+//list all users
+router.get('/', setREADALL, onAuthorizedToken, async function (req, res, next) {
+  req.response = await userService.getUserList()
+  next();
+});
+
+//show a single user 
+router.get('/readuser/:email', setREADALL, onAuthorizedToken, async function(req, res, next){
+  req.response = await userService.getUserData(req.params)
+  next();
+})
+
+//update user data
 router.post('/updatemydata', setUPDATE, onAuthorizedToken, async function(req, res, next){
-  req.response = await userService.updateUserData(req.body.email)
+  req.response = await userService.updateUserData(req.body)
   next();
 })
+
+//update data of a user
 router.post('/updateuser/:email', setUPDATEALL, onAuthorizedToken, async function(req, res, next){
-  req.response = await userService.updateUserData(req.params.email)
+  req.body.email = req.params.email
+  req.response = await userService.updateUserData(req.body)
   next();
 })
+
+//delete own user
+router.delete('/deletemydata', setDELETE, onAuthorizedToken, async function (req, res, next) {
+  req.response = await userService.updateUserData(req.body);
+  next();
+});
+
+//delete a user
+router.delete('/deleteuser/:email', setDELETEALL, onAuthorizedToken, async function (req, res, next) {
+  req.response = await userService.updateUserData(req.params.email);
+  next();
+});
+
+//update password
+router.post('/updatemypassword', setUPDATE, onAuthorizedToken, async function(req, res, next){
+  req.response = await userService.updatePassword(req.body)
+  next();
+})
+
+router.post('/updatepassword/:email', setUPDATE, onAuthorizedToken, async function(req, res, next){
+  req.body.email = req.params.email
+  req.response = await userService.updatePassword(req.body)
+  next();
+});
+
+//update rol
+router.post('/upgrade', setUPGRADE, onAuthorizedToken, async function(req, res, next){
+  req.response = await userService.upgrade(req.body)
+  next();
+});
+
+//DOING ==============================================================================================
+
+
+
+// TODO: =============================================================================================
+
+router.post('/create_guest', setCREATEGUEST, onAuthorizedToken, async function (req, res, next) {
+  res.json('Seguimos trabaando como empresa');
+});
+
+
+
+
 
 module.exports = router;
