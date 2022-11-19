@@ -9,7 +9,6 @@ async function onAuthorizedToken(req, res, next) {
             })
         if (response.data.pass) {
             req.body.email = response.data.email;
-            //if (req.body.action != "UPDATEALL") req.body.rolname = response.data.rolname
             next();
         }
         else res.status(401).json(response.data.error)

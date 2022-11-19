@@ -1,13 +1,15 @@
 async function handleResponse(req, res, next) {
     let status = 400;
-    let message = "hubo un error"
+    let data = { message: "Gateway error" }
     if (req.response) {
-        if ("password" in req.response) req.response.password = "*********";
-        if (!req.response.error) status = 200;
-        message = req.response.data
+        if (typeof (req.response.data) == 'object')
+            if ("password" in req.response.data) req.response.data.password = "*********";
+
+        status = req.response.status
+        data = req.response.data
     }
 
-    res.status(status).json(message);
+    res.status(status).json(data);
     next();
 }
 

@@ -12,6 +12,7 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
+if(!process.env.AUTH_URL_BASE) console.log('=======>> ¡¡¡No se encuentran variables de entorno!! <<==============' )
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 

@@ -1,20 +1,22 @@
 const axios = require('axios');
 
-async function authUser(user){
+async function authUser(user) {
+
+    var res;
 
     try {
-       const response = await axios.post(process.env.AUTH_URL_BASE + '/auth/', user);
-        return {
-            error: false,
-            data: response.data
-        }
+        const response = await axios.post(process.env.AUTH_URL_BASE + '/auth/', user);
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 
 }
 
-module.exports = {authUser}
+
+module.exports = { authUser }

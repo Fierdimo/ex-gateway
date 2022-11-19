@@ -1,107 +1,107 @@
 const axios = require('axios');
 
 async function createUser(user) {
+    var res;
     try {
         const response = await axios.post(process.env.AUTH_URL_BASE + '/user/create', user);
-        return {
-            error: false,
-            data: response.data
-        }
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
 async function getUserData(data) {
+    var res;
     try {
         const response = await axios.get(process.env.AUTH_URL_BASE + '/user/show/' + data.email)
-        return {
-            error: false,
-            data: response.data
-        }
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
 async function getUserList() {
+    var res;
     try {
         const response = await axios.get(process.env.AUTH_URL_BASE + '/user/list')
-        return {
-            error: false,
-            data: response.data
-        }
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
 async function updateUserData(user) {
+    var res;
     try {
         const response = await axios.post(process.env.AUTH_URL_BASE + '/user/update/', user)
-        return {
-            error: false,
-            data: response.data
-        }
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
 async function deleteUser(user) {
+    var res;
     try {
         const response = await axios.delele(process.env.AUTH_URL_BASE + '/user/' + user)
-        return {
-            error: false,
-            data: response.data
-        }
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
 async function updatePassword(user) {
+    var res;
     try {
         const response = await axios.post(process.env.AUTH_URL_BASE + '/user/changepassword/', user)
-        return {
-            error: false,
-            data: response.data
-        }
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
 async function upgrade(user) {
+    var res;
     try {
-        const response = await axios.post(process.env.AUTH_URL_BASE + '/user/upgrade/'+ user)
-        return {
-            error: false,
-            data: response.data
-        }
+        const response = await axios.post(process.env.AUTH_URL_BASE + '/user/upgrade/' + user)
+        res = response;
     } catch (err) {
-        return {
-            error: true,
-            data: err.message
-        }
+        res = err.response;
+    }
+
+    return {
+        status: res.status,
+        data: res.data
     }
 }
 
