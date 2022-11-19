@@ -8,4 +8,4 @@ router.post('/', async function(req, res, next){
     next();
 })
 
-module.exports =router
+module.exports = router

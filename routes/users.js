@@ -40,13 +40,13 @@ router.get('/readuser/:email', setREADALL, onAuthorizedToken, async function(req
 })
 
 //update user data
-router.post('/updatemydata', setUPDATE, onAuthorizedToken, async function(req, res, next){
+router.put('/updatemydata', setUPDATE, onAuthorizedToken, async function(req, res, next){
   req.response = await userService.updateUserData(req.body)
   next();
 })
 
 //update data of a user
-router.post('/updateuser/:email', setUPDATEALL, onAuthorizedToken, async function(req, res, next){
+router.put('/updateuser/:email', setUPDATEALL, onAuthorizedToken, async function(req, res, next){
   req.body.email = req.params.email
   req.response = await userService.updateUserData(req.body)
   next();
@@ -65,19 +65,19 @@ router.delete('/deleteuser/:email', setDELETEALL, onAuthorizedToken, async funct
 });
 
 //update password
-router.post('/updatemypassword', setUPDATE, onAuthorizedToken, async function(req, res, next){
+router.put('/updatemypassword', setUPDATE, onAuthorizedToken, async function(req, res, next){
   req.response = await userService.updatePassword(req.body)
   next();
 })
 
-router.post('/updatepassword/:email', setUPDATE, onAuthorizedToken, async function(req, res, next){
+router.put('/updatepassword/:email', setUPDATE, onAuthorizedToken, async function(req, res, next){
   req.body.email = req.params.email
   req.response = await userService.updatePassword(req.body)
   next();
 });
 
 //update rol
-router.post('/upgrade', setUPGRADE, onAuthorizedToken, async function(req, res, next){
+router.put('/upgrade', setUPGRADE, onAuthorizedToken, async function(req, res, next){
   req.response = await userService.upgrade(req.body)
   next();
 });
